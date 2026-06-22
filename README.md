@@ -32,48 +32,8 @@ Phase 5: Privacy & Scale (Upcoming)
 
 
 🏛️ **System Architecture**
-┌─────────────────────────────────────────────────────────────────────┐
-│                         MOBILE APP (Flutter)                         │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │
-│  │  Route UI    │  │  Background  │  │  Local DB    │              │
-│  │  (Select     │  │  GPS Service │  │  (SQLite)    │              │
-│  │   start/end) │  │  (5s interval)│  │  • stations  │              │
-│  │              │  │              │  │  • queue     │              │
-│  │  ✅ LIVE     │  │  ✅ LIVE     │  │  🔄 WIP      │              │
-│  └──────────────┘  └──────────────┘  └──────────────┘              │
-└─────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │  HTTPS (when network available)
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                         DATA ENGINEERING BACKEND                     │
-│                                                                      │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐              │
-│  │ API Gateway │───►│ AWS Lambda  │───►│  S3 Raw     │              │
-│  │  /sync/batch│    │  (Validate) │    │  Data Lake  │              │
-│  └─────────────┘    └──────┬──────┘    └──────┬──────┘              │
-│                            │                   │                    │
-│                            ▼                   │                    │
-│                     ┌─────────────┐            │                    │
-│                     │ DynamoDB    │            │                    │
-│                     │ (Sync State)│            │                    │
-│                     └─────────────┘            │                    │
-│                                                │                    │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │  AIRFLOW + PYSPARK (Daily ETL)                               │   │
-│  │  Extract -> Validate -> Transform -> Load -> Predict          │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-│                                                │                    │
-│  ┌─────────────────────────┐  ┌─────────────────────────┐           │
-│  │  AUTH DB (Encrypted)    │  │  ANALYTICS DB           │           │
-│  │  • users (PII)          │  │  • anonymous journeys     │           │
-│  │  • tokens               │  │  • predictions          │           │
-│  └─────────────────────────┘  └─────────────────────────┘           │
-│                                                │                    │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │  CONSUMPTION: Streamlit Dashboard + Grafana Monitoring      │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────┘
+<img width="1340" height="1776" alt="image" src="https://github.com/user-attachments/assets/a3bf7699-ab4b-45f2-b40d-a1c8feea891a" />
+
 
 
 **Tech Stack (Full)**
